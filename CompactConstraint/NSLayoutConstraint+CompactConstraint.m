@@ -5,6 +5,12 @@
 
 #import "NSLayoutConstraint+CompactConstraint.h"
 
+#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
+#define CCLayoutPriorityRequired UILayoutPriorityRequired
+#elif TARGET_OS_MAC
+#define CCLayoutPriorityRequired NSLayoutPriorityRequired
+#endif
+
 @implementation NSLayoutConstraint (CompactConstraint)
 
 + (NSArray *)compactConstraints:(NSArray *)relationshipStrings metrics:(NSDictionary *)metrics views:(NSDictionary *)views
@@ -89,7 +95,7 @@
 
     id leftOperand, rightOperand, leftAttributeNumber, rightAttributeNumber, rightMetricNumber;
     NSLayoutAttribute leftAttribute, rightAttribute;
-    double rightScalar = 1.0, rightConstant = 0.0, rightMetric = 0.0, priority = UILayoutPriorityRequired;
+    double rightScalar = 1.0, rightConstant = 0.0, rightMetric = 0.0, priority = CCLayoutPriorityRequired;
     BOOL rightOperandIsMetric = NO;
     NSString *leftOperandStr, *leftPropertyStr, *operatorStr, *rightOperandStr, *rightPropertyStr, *rightValueStr;
     NSString *identifier = relationship;
